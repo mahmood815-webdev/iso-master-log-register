@@ -6,6 +6,7 @@ export default defineConfig({
   plugins: [react(), tailwindcss()],
   base: '/iso-master-log-register/',//,'/mahmood815-webdev'//
   server: {
-    open: false
+    port: 5173,
+    strictPort: true,
   }
 })
