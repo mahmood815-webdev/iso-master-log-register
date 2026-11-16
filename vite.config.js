@@ -6,6 +6,6 @@ export default defineConfig({
   plugins: [react(), tailwindcss()],
   base: '/iso-master-log-register/',//,'/mahmood815-webdev'//
   server: {
-    open: true
+    open: false
   }
 })
