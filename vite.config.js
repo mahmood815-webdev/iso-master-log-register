@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [react(), tailwindcss()],
   base: process.env.VERCEL ? '/' : '/iso-master-log-register/', // '/mahmood815-webdev'
   server: {
-    port: 5174,
+    port: 5173,
     strictPort: true,
   }
 })
