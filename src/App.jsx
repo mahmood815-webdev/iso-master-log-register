@@ -6,7 +6,6 @@ import {
   downloadAsCSV,
 } from './utils/backupHelper';
 
-export default function App() {
   // 1. Existing form input states (keep whatever fields your app already uses)
   const [docNo, setDocNo] = useState('');
   const [title, setTitle] = useState('');
