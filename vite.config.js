@@ -7,6 +7,6 @@ export default defineConfig({
   base: process.env.VERCEL ? '/' : '/iso-master-log-register/', // '/mahmood815-webdev'
   server: {
     port: 5173,
-    strictPort: true,
+    strictPort: false,
   }
 })
