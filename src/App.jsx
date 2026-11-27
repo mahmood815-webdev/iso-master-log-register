@@ -78,4 +78,48 @@ export default function App() {
       </ul>
     </div>
   );
+}import { useEffect, useState } from 'react';
+import { supabase } from './supabaseClient';
+import AuthBox from './AuthBox';
+
+export default function App() {
+  const [user, setUser] = useState(null);
+  const [checkingAuth, setCheckingAuth] = useState(true);
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data }) => {
+      setUser(data.session?.user ?? null);
+      setCheckingAuth(false);
+    });
+
+    const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+    });
+
+    return () => listener.subscription.unsubscribe();
+  }, []);
+
+  async function handleLogout() {
+    await supabase.auth.signOut();
+  }
+
+  // نیا لاگ محفوظ کرتے وقت user.id بھیجنے کی مثال:
+  // await supabase.from('master_logs').insert([{ ...newLog, user_id: user.id }])
+
+  if (checkingAuth) return <p>لوڈ ہو رہا ہے...</p>;
+
+  if (!user) {
+    return <AuthBox onAuthSuccess={(loggedInUser) => setUser(loggedInUser)} />;
+  }
+
+  return (
+    <div>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: 12 }}>
+        <span>صارف: {user.email}</span>
+        <button onClick={handleLogout}>لاگ آؤٹ (Logout)</button>
+      </div>
+
+      {/* یہاں آپ کا موجودہ Master Log Register کا مین کمپوننٹ آئے گا */}
+    </div>
+  );
 }
